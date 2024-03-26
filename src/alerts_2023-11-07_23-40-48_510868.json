@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/Style/1.HE/Design2015/bootstrap.min.css" media="screen" />
+
+    <style type="text/css">
+        .body404 {
+            color: #002f58;
+            text-align: center;
+            margin: 0 15px;
+            background: #F5F7F9;
+        }
+
+            .body404 .mainImg404 {
+                height: 555px;
+                margin-top: 80px;
+            }
+
+            .body404 .title404 {
+                font-size: 34px;
+                font-weight: 600;
+                margin-top: -30px;
+            }
+
+            .body404 .reg404 {
+                font-size: 28px;
+                font-weight: normal;
+            }
+
+            .body404 .bold404 {
+                font-size: 24px;
+                font-weight: 500;
+                margin-top: 32px;
+            }
+
+            .body404 .btnHP-404 img {
+                width: 9px;
+                margin-right: 5px;
+            }
+
+            .body404 .btnHP-404 {
+                margin-top: 40px;
+                color: white;
+                width: 277px;
+                margin-right: auto;
+                height: 50px;
+                align-items: center;
+                border-radius: 26px;
+                border: solid 1px rgba(80, 98, 236, 0.2);
+                background-image: linear-gradient( 115deg, #5062ec 14%, #24274a 169%);
+                display: inline-block;
+                align-items: center;
+                justify-content: center;
+                padding: 8px 32px;
+                font-size: 24px;
+            }
+    </style>
+</head>
+
+<body class="body404">
+
+    <div class="container_main" style="text-align: center;">
+        <img src="Images/Shared/pakar_logo_404.png" class="mainImg404" />
+        <div class="title404">
+            מצטערים, העמוד שחיפשת לא קיים יותר
+        </div>
+        <div class="reg404">
+            כנראה שהמידע בו כבר לא עדכני ונאלצנו לוותר עליו
+        </div>
+        <div class="bold404">
+            נשמח להציע לך תכנים רלוונטיים אחרים
+        </div>
+
+        <a href="/" id="Master_ContentPlaceHolder1_btntoHomePage" class="btnHP-404">
+            <img class="" src="/Images/SVG/General/whitearrowleft.svg" />
+            <span class="alert-button-text">
+                חזרה לעמוד הבית
+            </span>
+        </a>
+    </div>
+</body>
+</html>

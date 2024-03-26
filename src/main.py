@@ -6,6 +6,9 @@ import math
 import requests
 import json
 import time
+import os
+import datetime
+
 
 class RedAlert():
 
@@ -80,7 +83,8 @@ class RedAlert():
         before the rocket hit the fan. for better parsing later
         '''
 
-        f = open('targets.json', encoding='utf-8')
+        json_filename = os.path.join(os.path.dirname(__file__), 'targets.json')
+        f = open(json_filename, encoding='utf-8')
         # returns JSON object as 
         return json.load(f)
 
@@ -89,11 +93,31 @@ class RedAlert():
         # get red alerts
         HOST = "https://www.oref.org.il/WarningMessages/alert/alerts.json"
         r = requests.get(HOST, headers=self.headers, cookies=self.cookies)
+
+        if not b'{' in r.content or not b'}' in r.content:
+            return
+        
+        filepath = os.path.join(os.path.dirname(__file__), f'alerts_{datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S_%f")}.json')
+        with open(filepath, "wb") as f:
+            f.write(r.content)
+
+        print('[-] Wrote alerts to %s' % filepath)
+        return
+
         alerts = r.content.decode("UTF-8").replace("\n","").replace("\r","")
         if(len(alerts) <= 1):
             return None
+
+        data = r.json()
+
+        # log the response
+        print(data)
+        with open("alerts.json", "a") as f:
+            f.write(data)
+            f.write("\n")
+
         # parse the json response
-        j = json.loads(r.content)
+        j = data
         # check if there is no alerts - if so, return null.
         if(len(j["data"]) == 0):
             return None
@@ -113,11 +137,16 @@ def main():
         city_data = []
         migun_time = 0
         # sleep 1 second before checking alerts over again to not put pressure on the server.
-        time.sleep(1)
+        time.sleep(2)
         # get alerts from pikud ha-oref website
-        red_alerts = alert.get_red_alerts()
+        red_alerts = None
+        try:
+            red_alerts = alert.get_red_alerts()
+        except Exception as e:
+            print("[-] Error: %s" % e)
         # if there is red alerts right now, get into action, quickly!
         if(red_alerts != None):
+            print("[+] There is %s alerts right now!" % alert.count_alerts(red_alerts["data"]))
             # loop through each city there is red alert currently
             for alert_city in red_alerts["data"]:
                 # get unique alert id for the current looping alerts
